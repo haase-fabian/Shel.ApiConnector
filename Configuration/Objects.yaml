@@ -1,0 +1,24 @@
+Shel\ApiConnector\ApiConnectorLoggerInterface:
+  scope: singleton
+  factoryObjectName: Neos\Flow\Log\PsrLoggerFactoryInterface
+  factoryMethodName: get
+  arguments:
+    1:
+      value: 'apiConnectorLogger'
+
+Shel\ApiConnector\Service\BingoWsConnector:
+  properties:
+    apiCache:
+      object:
+        factoryObjectName: Neos\Flow\Cache\CacheManager
+        factoryMethodName: getCache
+        arguments:
+          1:
+            value: ApiConnector_DataCache
+    fallbackApiCache:
+      object:
+        factoryObjectName: Neos\Flow\Cache\CacheManager
+        factoryMethodName: getCache
+        arguments:
+          1:
+            value: ApiConnector_PersistentCache

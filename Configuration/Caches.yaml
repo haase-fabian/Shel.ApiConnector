@@ -1,0 +1,8 @@
+ApiConnector_DataCache:
+  backend: Neos\Cache\Backend\FileBackend
+  backendOptions:
+    defaultLifetime: 3600
+
+ApiConnector_PersistentCache:
+  backend: Neos\Cache\Backend\FileBackend
+  persistent: true

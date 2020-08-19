@@ -1,0 +1,27 @@
+{
+    "description": "Abstract service class for retrieving data from Apis and caching the results with the Flow Framework",
+    "type": "neos-package",
+    "name": "shel/api-connector",
+    "license": "MIT",
+    "keywords": [
+      "flow",
+      "neoscms",
+      "api",
+      "caching"
+    ],
+    "require": {
+      "neos/flow": "^5.0 || ^6.0",
+      "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shel\\ApiConnector\\": "Classes"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Shel.ApiConnector"
+        }
+    }
+}
+
