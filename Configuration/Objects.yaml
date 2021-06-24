@@ -6,19 +6,21 @@ Shel\ApiConnector\Log\ApiConnectorLoggerInterface:
     1:
       value: 'apiConnectorLogger'
 
-Shel\ApiConnector\Service\BingoWsConnector:
-  properties:
-    apiCache:
-      object:
-        factoryObjectName: Neos\Flow\Cache\CacheManager
-        factoryMethodName: getCache
-        arguments:
-          1:
-            value: ApiConnector_DataCache
-    fallbackApiCache:
-      object:
-        factoryObjectName: Neos\Flow\Cache\CacheManager
-        factoryMethodName: getCache
-        arguments:
-          1:
-            value: ApiConnector_PersistentCache
+# Add a config like this to your packages Objects.yaml
+#
+#My\ApiConnector\Service\MyApiService:
+#  properties:
+#    apiCache:
+#      object:
+#        factoryObjectName: Neos\Flow\Cache\CacheManager
+#        factoryMethodName: getCache
+#        arguments:
+#          1:
+#            value: ApiConnector_DataCache
+#    fallbackApiCache:
+#      object:
+#        factoryObjectName: Neos\Flow\Cache\CacheManager
+#        factoryMethodName: getCache
+#        arguments:
+#          1:
+#            value: ApiConnector_PersistentCache
