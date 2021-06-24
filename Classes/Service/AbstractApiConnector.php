@@ -43,7 +43,7 @@ abstract class AbstractApiConnector
     /**
      * This should be overriden for the implementation.
      *
-     * @Flow\Inject(setting="<implementationName>")
+     * @Flow\InjectConfiguration(setting="<implementationName>")
      * @var array
      */
     protected $apiSettings;
