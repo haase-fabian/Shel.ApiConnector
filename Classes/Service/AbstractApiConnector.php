@@ -44,14 +44,12 @@ abstract class AbstractApiConnector
      * This should be overriden for the implementation.
      *
      * @Flow\Inject(setting="<implementationName>")
-     *
      * @var array
      */
     protected $apiSettings;
 
     /**
      * @Flow\Inject
-     *
      * @var VariableFrontend
      */
     protected $apiCache;
@@ -69,23 +67,19 @@ abstract class AbstractApiConnector
 
     /**
      * @Flow\Inject
-     *
      * @var ApiConnectorLoggerInterface
      */
     protected $logger;
 
     /**
      * Retrieves data from the api.
-     *
-     * @param string $actionName
-     * @param array $additionalParameters
-     * @return array
+ *
      * @throws CacheException
      */
-    public function fetchData($actionName, array $additionalParameters = []): array
+    public function fetchData(string $actionName, array $additionalParameters = []): array
     {
         $requestUri = $this->buildRequestUri($actionName, $additionalParameters);
-        $fallbackCacheKey = $this->getCacheKey($requestUri);
+        $fallbackCacheKey = $this->getCacheKey((string)$requestUri);
         $response = false;
 
         if ($this->apiSettings['useFallbackCache']) {
@@ -94,19 +88,13 @@ abstract class AbstractApiConnector
 
         if ($response === false) {
             // Without a fallback cache wait for data retrieval
-            $response = $this->fetchDataInternal($requestUri);
+            $response = $this->fetchDataInternal((string)$requestUri);
         }
 
         return $response !== false ? json_decode($response, true) : [];
     }
 
-    /**
-     * @param string $actionName
-     * @param array $additionalParameters
-     *
-     * @return Uri
-     */
-    protected function buildRequestUri($actionName, array $additionalParameters = []): Uri
+    protected function buildRequestUri(string $actionName, array $additionalParameters = []): Uri
     {
         $requestUri = new Uri($this->apiSettings['apiUrl']);
         $requestUri = $requestUri->withPath($requestUri->getPath() . $this->apiSettings['actions'][$actionName])
@@ -116,22 +104,17 @@ abstract class AbstractApiConnector
 
     /**
      * Creates a valid cache identifier.
-     *
-     * @param $identifier
-     *
-     * @return string
      */
-    protected function getCacheKey($identifier): string
+    protected function getCacheKey(string $identifier): string
     {
         return sha1(self::class . '__' . $identifier);
     }
 
     /**
-     * @param string $requestUri
      * @return bool|ResponseInterface
      * @throws CacheException
      */
-    protected function fetchDataInternal($requestUri)
+    protected function fetchDataInternal(string $requestUri)
     {
         $browser = $this->getBrowser();
         try {
@@ -156,8 +139,6 @@ abstract class AbstractApiConnector
     /**
      * Returns a browser instance with curlengine and authentication parameters set.
      * Authorization parameters will be added if defined in the configuration.
-     *
-     * @return Browser
      */
     protected function getBrowser(): Browser
     {
@@ -181,14 +162,9 @@ abstract class AbstractApiConnector
 
     /**
      * Json encodes data and posts it to the api
-     *
-     * @param string $actionName
-     * @param array $additionalParameters
-     * @param array $data
-     * @return bool
      */
     public function postJsonData(
-        $actionName,
+        string $actionName,
         array $additionalParameters = [],
         array $data = []
     ): bool {
@@ -210,11 +186,9 @@ abstract class AbstractApiConnector
     }
 
     /**
-     * @param string $cacheKey
-     *
      * @return mixed
      */
-    protected function getItem($cacheKey)
+    protected function getItem(string $cacheKey)
     {
         if (array_key_exists($cacheKey, $this->objectCache)) {
             return $this->objectCache[$cacheKey];
@@ -226,21 +200,16 @@ abstract class AbstractApiConnector
     }
 
     /**
-     * @param string $cacheKey
      * @param mixed $value
-     * @param array $tags
      * @throws CacheException
      */
-    protected function setItem($cacheKey, $value, $tags = []): void
+    protected function setItem(string $cacheKey, $value, array $tags = []): void
     {
         $this->objectCache[$cacheKey] = $value;
         $this->apiCache->set($cacheKey, $value, $tags);
     }
 
-    /**
-     * @param string $cacheKey
-     */
-    protected function unsetItem($cacheKey): void
+    protected function unsetItem(string $cacheKey): void
     {
         unset($this->objectCache[$cacheKey]);
         $this->apiCache->remove($cacheKey);
