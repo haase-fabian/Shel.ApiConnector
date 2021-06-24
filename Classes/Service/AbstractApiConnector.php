@@ -15,7 +15,7 @@ use Neos\Flow\Http\Client\Browser;
 use Neos\Flow\Http\Client\CurlEngine;
 use Neos\Flow\Http\Client\InfiniteRedirectionException;
 use Psr\Http\Message\ResponseInterface;
-use Shel\ApiConnector\ApiConnectorLoggerInterface;
+use Shel\ApiConnector\Log\ApiConnectorLoggerInterface;
 
 /**
  * Abstract base class for api connectors.

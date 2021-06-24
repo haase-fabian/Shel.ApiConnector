@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Shel\ApiConnector;
+namespace Shel\ApiConnector\Log;
 
 /*                                                                        *
  * This script belongs to the Flow package "Shel.ApiConnector".           *

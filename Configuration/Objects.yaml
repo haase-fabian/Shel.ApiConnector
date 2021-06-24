@@ -1,4 +1,4 @@
-Shel\ApiConnector\ApiConnectorLoggerInterface:
+Shel\ApiConnector\Log\ApiConnectorLoggerInterface:
   scope: singleton
   factoryObjectName: Neos\Flow\Log\PsrLoggerFactoryInterface
   factoryMethodName: get
