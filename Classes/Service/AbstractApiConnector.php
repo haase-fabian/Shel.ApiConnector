@@ -43,7 +43,7 @@ abstract class AbstractApiConnector
     /**
      * This should be overriden for the implementation.
      *
-     * @Flow\InjectConfiguration(setting="<implementationName>")
+     * @Flow\InjectConfiguration(path="<implementationName>",package="Your.Package")
      * @var array
      */
     protected $apiSettings;
@@ -112,7 +112,6 @@ abstract class AbstractApiConnector
 
     /**
      * @return bool|ResponseInterface
-     * @throws CacheException
      */
     protected function fetchDataInternal(string $requestUri)
     {
@@ -130,7 +129,11 @@ abstract class AbstractApiConnector
 
         // Store new data in fallback cache if it's valid
         if ($this->apiSettings['useFallbackCache'] && $response !== false) {
-            $this->fallbackApiCache->set($this->getCacheKey($requestUri), $response);
+            try {
+                $this->fallbackApiCache->set($this->getCacheKey($requestUri), $response);
+            } catch (CacheException $e) {
+                $this->logger->error('Cache error', [$e]);
+            }
         }
 
         return $response;
