@@ -10,7 +10,7 @@
       "caching"
     ],
     "require": {
-      "neos/flow": "^5.0 || ^6.0 || ^7.3",
+      "neos/flow": "^5.0 || ^6.0 || ^7.3 || ^8.0",
       "ext-curl": "*"
     },
     "autoload": {
